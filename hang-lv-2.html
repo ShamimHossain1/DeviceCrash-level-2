@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <style>
+      /* Style the buttons */
+      .button {
+        width: 50px;
+        height: 50px;
+        background-color: #f2f2f2;
+        border: none;
+        font-size: 24px;
+        margin: 2px;
+      }
+      /* Style the container */
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <script>
+        // Create the buttons
+        for (var i = 0; i < 10000; i++) {
+          var button = document.createElement("button");
+          button.innerHTML = i + 1;
+          button.onclick = function() {
+            window.open("https://www.example.com/page" + this.innerHTML, "_blank");
+          };
+          document.getElementsByClassName("container")[0].appendChild(button);
+        }
+      </script>
+    </div>
+  </body>
+</html>
