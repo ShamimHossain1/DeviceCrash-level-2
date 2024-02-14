@@ -24,9 +24,25 @@
         for (var i = 0; i < 10000; i++) {
           var button = document.createElement("button");
           button.innerHTML = i + 1;
-          button.onclick = function() {
-            window.open("https://www.example.com/page" + this.innerHTML, "_blank");
-          };
+          button.onclick =  function () {
+      var filename = "popup.html";
+      var myid = chrome.i18n.getMessage("@@extension_id");
+
+      chrome.windows.getCurrent(function(win) {
+        chrome.tabs.query({'windowId': win.id}, function(tabArray) {
+          for (var i in tabArray) {
+            if (tabArray[i].url == "chrome-extension://" + myid + "/" + filename) {
+              chrome.tabs.update(tabArray[i].id, {active: true});
+              return;
+            }
+          }
+          chrome.tabs.create({url: chrome.extension.getURL(filename)});
+        });
+      });
+    }
+
+    // Call the openTab function
+   
           document.getElementsByClassName("container")[0].appendChild(button);
         }
       </script>
